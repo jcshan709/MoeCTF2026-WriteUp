@@ -62,7 +62,7 @@ Error: No module named 'ſᵘᵇᵖʳºᶜᵉſſ'
 经过测试，**很多数字的Unicode不能成功识别为ASCII数字**  
 那么，数字要怎样绕过呢？  
 可以借助一些返回数字的函数，最常用的就是`len`了，只需要传入相应长度的字符串即可  
-> :large_blue_circle: [numban.py - 将字符串转换为chr(len('...'))拼接的脚本]  
+> :large_blue_circle: [numban.py - 将字符串转换为chr(len('...'))拼接的脚本](../code/utilities/sandbox/numban.py)  
 
 |字符串|chr+len拼接|
 |-|-|
