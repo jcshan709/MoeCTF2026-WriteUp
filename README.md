@@ -7,7 +7,7 @@
 |标记|用途|示例|
 |-|-|-|
 |:large_blue_circle:`:large_blue_circle:`|表示 [Utilities](./code/tools/) 相关内容|:large_blue_circle: [chr.py](./code/utilities/sandbox/chr.py)|
-|:heavy_check_mark:`:heavy_check_mark:`|表示 [Exploits](./code/exploits/) 相关内容|:heavy_check_mark: 本题有 exploit 可用|
+|:heavy_check_mark:`:heavy_check_mark:`|表示 [Exploits](./code/exploits/) 相关内容|:heavy_check_mark: 本题解提供了 exploit 代码|
 |:warning:`:warning:`|表示需要注意的内容|:warning: 请勿将此仓库用于商业用途|
 
 ## 关于我自己
