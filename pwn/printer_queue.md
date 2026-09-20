@@ -94,8 +94,9 @@ pop rbp         // 恢复至旧rbp，此时rsp指向call压入的返回地址
 
 接下来是构造ROP链，目标为：  
 ```c
+char argv[2][] = {"sh", NULL};
 // syscall 0x3B
-execve("/bin/sh", "sh", NULL);
+execve("/bin/sh", argv, NULL);
 ```  
 
 构造 **ret2syscall** 的ROP链：  
