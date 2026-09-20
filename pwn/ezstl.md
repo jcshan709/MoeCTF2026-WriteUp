@@ -157,7 +157,7 @@ extern "C" void win()
 |3|将泄露的`win`地址转换为10进制并写入**custom_style**|构建假虚表|
 |4|成功拿到后门，`cat /flag`即可||  
 
-以下是我的 exploit 脚本：  
+最终 Exploit 脚本：  
 ```python
 from pwn import *
 context(os='linux', arch='amd64')
@@ -192,6 +192,7 @@ r.interactive()
 $ cat /flag
 moectf{Iove_frOM-c++-@ND-5tI7b01dd7a2d}
 ```
+恭喜拿下 300pts！
 
 ## 题目源码
 ```cpp

