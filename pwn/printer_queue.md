@@ -2,11 +2,11 @@
 
 :heavy_check_mark: 本题解提供了 [exploit 代码](../code/exploits/printer_queue.py)  
 
-> 本题知识点：
-> :star::star: 基本ROP链的构造  
-> :star::star::star::star: 栈迁移  
+> 本题知识点：\
+> :star::star: 基本ROP链的构造\
+> :star::star::star::star: 栈迁移
 >
-> 综合难度：:star::star::star::star:
+> 综合难度： :star::star::star::star:
 
 ## 初步检查
 
