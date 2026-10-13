@@ -1,4 +1,5 @@
-> 本项目采用[CC BY-NC-SA 4.0 国际许可协议](./LICENSE)
+> 本项目采用[CC BY-NC 4.0 国际许可协议](https://creativecommons.org/licenses/by-nc/4.0/deed.zh-hans)\
+> This repository is licensed under [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0)
 
 # MoeCTF2026 选手题解 ([@jcshan709](https://github.com/jcshan709))
 
