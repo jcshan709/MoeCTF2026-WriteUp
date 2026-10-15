@@ -2,9 +2,9 @@
 
 :heavy_check_mark: 本题解提供了 [exploit 代码](../code/exploits/ezstl.py)  
 
-> 本题知识点：\
-> :star::star::star: STL内部代码的阅读能力\
-> :star::star: std::vector的内存结构\
+> 本题知识点：  
+> :star::star::star: STL内部代码的阅读能力  
+> :star::star: std::vector的内存结构  
 > :star::star::star::star: C++虚函数与多态性的底层实现
 >
 > 综合难度： :star::star::star::star:
@@ -15,7 +15,7 @@
 
 打开你的 IDE（或者配置好插件的vscode），打开 pwn.cpp，**Ctrl+左键** `std::vector` 跳转到 vector 的定义。
     
-你会发现：`std::vector`中没有直接声明任何变量，只是一堆类型别名（typedef）\
+你会发现：`std::vector`中没有直接声明任何变量，只是一堆类型别名（typedef）  
 于是继续追踪**父类** `_Vector_base`，发现内部声明了3个变量，部分代码如下：
 
 ```cpp
@@ -25,14 +25,14 @@ pointer _M_end_of_storage;
 ```
 > PS: 这里其实是`_Vector_base`中的一个内部结构体的3个字段  
 
-经过一番研究，最终确定 `std::vector` 内部实际存着3个指针，\
+经过一番研究，最终确定 `std::vector` 内部实际存着3个指针，  
 结合名称可知：
 
 - **_M_start**: 指向缓冲区的起始位置（类似栈底）
 - **_M_finish**: 指向存储的最后一个数据（最后push_back的）（类似栈顶）
 - **_M_end_of_storage**: 指向缓冲区的末尾
 
-在 **x86_64** 架构下，3个指针各占8字节，\
+在 **x86_64** 架构下，3个指针各占8字节，  
 即一个 `std::vector` 对象占据 **0x18** 个字节。
 
 ## C++中的虚函数和多态性
@@ -45,8 +45,8 @@ pointer _M_end_of_storage;
 
 在C++中，多态性是通过**虚表 vtable**实现的。
 
-虚表是一个**指针数组**，存放着**子类**的虚函数地址，以**nullptr**（0）结束，\
-同时C++会在每个拥有虚方法的对象中额外存储一个**虚表指针 vptr**来指向虚表，\
+虚表是一个**指针数组**，存放着**子类**的虚函数地址，以**nullptr**（0）结束，  
+同时C++会在每个拥有虚方法的对象中额外存储一个**虚表指针 vptr**来指向虚表，  
 当调用虚方法时，程序会从**vptr**一路追踪到子类的虚函数地址并调用。
 
 ### 一个简单的例子

@@ -1,10 +1,10 @@
 # 魔理沙偷走了重要的东西 - 灵梦视角 WriteUp
 
-> 本题知识点：\
-> :star: 十六进制分析\
-> :star::star: PNG格式\
-> :star::star::star::star: ZIP格式\
-> :star::star::star: ZIP头修复\
+> 本题知识点：  
+> :star: 十六进制分析  
+> :star::star: PNG格式  
+> :star::star::star::star: ZIP格式  
+> :star::star::star: ZIP头修复  
 > :star::star::star: 图片 LSB 隐写提取
 >
 > 综合难度： :star::star::star::star::star:

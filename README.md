@@ -1,4 +1,4 @@
-> 本项目采用[CC BY-NC 4.0 国际许可协议](https://creativecommons.org/licenses/by-nc/4.0/deed.zh-hans)\
+> 本项目采用[CC BY-NC 4.0 国际许可协议](https://creativecommons.org/licenses/by-nc/4.0/deed.zh-hans)  
 > This repository is licensed under [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0)
 
 # MoeCTF2026 选手题解 ([@jcshan709](https://github.com/jcshan709))
@@ -16,8 +16,8 @@
 
 ## 关于我自己
 
-西电2026级学生，在[MoeCTF2026](https://ctf.xidian.edu.cn/games/37)中取得[西电榜一](https://ctf.xidian.edu.cn/games/37/scoreboard?institute=1)，总榜 18。\
-多次参与 CSP 系列赛事，并在 NOIP2024 中取得二等奖。\
+西电2026级学生，在[MoeCTF2026](https://ctf.xidian.edu.cn/games/37)中取得[西电榜一](https://ctf.xidian.edu.cn/games/37/scoreboard?institute=1)，总榜 18。  
+多次参与 CSP 系列赛事，并在 NOIP2024 中取得二等奖。  
 Minecraft 爱好者，东方厨......
 
 ## 我的解题情况

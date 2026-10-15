@@ -1,10 +1,10 @@
 # moe论坛 - WriteUp
 
-> 本题知识点：\
-> :star: 基本的存储型XSS\
-> :star::star: 文件上传后缀名绕过\
-> :star::star::star::star: 复杂路径爆破\
-> :star::star::star::star: PHP一句话木马及 webshell\
+> 本题知识点：  
+> :star: 基本的存储型XSS  
+> :star::star: 文件上传后缀名绕过  
+> :star::star::star::star: 复杂路径爆破  
+> :star::star::star::star: PHP一句话木马及 webshell  
 > :star::star::star::star::star: suid提权
 >
 > 综合难度： :star::star::star::star::star::star::star:
@@ -15,7 +15,7 @@
 
 打开环境，一个登录页显示在眼前。想要进入，必须要有账号，于是随便注册一个。
 
-![注册](../assets/web_moe_forum/register.png)\
+![注册](../assets/web_moe_forum/register.png)  
 ~~！？⑨⑨？！~~ ~~越共探头~~
 
 注册后，检查 cookie，发现使用 `PHPSESSID` 来保存会话。
@@ -24,14 +24,14 @@
 
 ![发帖测试](../assets/web_moe_forum/frontend_sniff.png)
 
-同时注意到一个很关键的点：**admin账户会经常访问主页！**\
+同时注意到一个很关键的点：**admin账户会经常访问主页！**  
 那么，admin在访问主页时**很有可能会执行页面上的\<script>标签中的代码！**
 
 于是想到使用 XSS 攻击。
 
 ### XSS
 
-跨站脚本攻击，Cross-Site Scripting (XSS，为了防止和层叠样式表 **C**ascading **S**tyle **S**heet 混淆)，是一种常见的 Web 攻击手段。\
+跨站脚本攻击，Cross-Site Scripting (XSS，为了防止和层叠样式表 **C**ascading **S**tyle **S**heet 混淆)，是一种常见的 Web 攻击手段。  
 通过向页面代码中插入 `<script>` `<img>` `<iframe>` 等标签来实现在其他用户的页面中执行恶意代码。
 
 简单测试了一下， `<script>` 标签可以直接执行，于是编写获取 cookie 的 payload。
@@ -83,7 +83,7 @@ http://127.0.0.1:60804/view.php?id=11
 
 将最新的 `PHPSESSID` 和 `role` 拿来替换掉我们自己的，再次刷新，便成功登上了admin账户！
 
-![拿下admin](../assets/web_moe_forum/admin_sess.png)\
+![拿下admin](../assets/web_moe_forum/admin_sess.png)  
 ~~没想到琪露诺也能混上管理员的身份~~
 
 至此，阶段1胜利！（是的你没看错这只是第一阶段）
