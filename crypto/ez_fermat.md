@@ -1,31 +1,38 @@
 # ez_fermat 解题思路
-$m$ 是 flag 明文转换成的大整数  
-$c$ 是密文  
+
+### 建立数学模型
+
+$m$ 是 flag 明文转换成的大整数\
+$c$ 是密文\
 使用 **RSA** 加密
 
-$p$、$q$ 是大素数
-$n = p \cdot q$  
-$c = m^e \bmod n$  
-$e = 65537$  
-$a = (2025)_{16}$  
-$b = (2026)_{16}$  
-$h = (ap + b) ^ q$  
-求解 $m$  
+$p$、$q$ 是大素数\
+$n = p \cdot q$\
+$c = m^e \bmod n$\
+$e = 65537$\
+$a = (2025)_{16}$\
+$b = (2026)_{16}$\
+$h = (ap + b) ^ q$\
+求解 $m$
 
 ### 推导
-$h \equiv b^q \pmod p$  
-$n = pq = (p-1)q+q \equiv q \pmod{p-1}$
+
+$h \equiv b^q \pmod p$\
+$n = pq = (p-1)q+q \equiv q \pmod{p-1}$\
 $\Rightarrow n = q + k(p-1) \ (k \in N)$
+
 根据**费马小定理**有：  
-$b^{p-1} \equiv 1 \pmod p$  
-$\Rightarrow b^n = b^{q+(p-1)k} = b^q \cdot (b^{p-1})^k \equiv h \cdot 1^k \equiv h \pmod p$  
-$\Rightarrow b^n = \pm kp + h \  (k \in N)$
-$\Rightarrow |b^n - h| = kp$
-$\Rightarrow p = \gcd(\set{kp, n})$
+$b^{p-1} \equiv 1 \pmod p$\
+$\Rightarrow b^n = b^{q+(p-1)k} = b^q \cdot (b^{p-1})^k \equiv h \cdot 1^k \equiv h \pmod p$\
+$\Rightarrow b^n = \pm kp + h \  (k \in N)$\
+$\Rightarrow |b^n - h| = kp$\
+$\Rightarrow p = \gcd(\set{kp, n})$\
 $\Rightarrow q = \frac n p$
+
 $\Phi(n) = (p-1)(q-1)$
-找到一个 $d$ 使得 $ed \equiv 1 \pmod{\Phi(n)}$
-$m = c^d \bmod n$
+求解模 $\Phi(n)$ 意义下 $e$ 的乘法逆元 $d$，\
+使得 $ed \equiv 1 \pmod{\Phi(n)}$\
+即可解出 $m = c^d \bmod n$
 
 ### 解题代码
 ```python
