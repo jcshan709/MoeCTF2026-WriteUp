@@ -62,7 +62,7 @@ enc = bytes([x ^ y for x, y in zip(flag, long_to_bytes(key))])
 将列表 `f` 表示成一个数列 $a_n$，那么可以得到：
 
 $$
-a_n = \left\{
+a_n = \left\lbrace
 \begin{aligned}
 INIT[n] & , & 0 \le n \lt 7 \\
 f(n) & , & n \ge 7
