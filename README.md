@@ -1,9 +1,7 @@
-> 本项目采用[CC BY-NC 4.0 国际许可协议](https://creativecommons.org/licenses/by-nc/4.0/deed.zh-hans)  
-> This repository is licensed under [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0)
+> 本项目采用 [CC BY-NC 4.0 国际许可协议](https://creativecommons.org/licenses/by-nc/4.0/deed.zh-hans)。  
+> This repository is licensed under [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0).
 
 # MoeCTF2026 选手题解 ([@jcshan709](https://github.com/jcshan709))
-
-> :warning: 施工中......  仅内部人员可进入
 
 ## 本题解中可能用到的一些特殊标记
 
