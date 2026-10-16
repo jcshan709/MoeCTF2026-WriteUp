@@ -1,6 +1,7 @@
 # 自助打印机 - WriteUp  
 
-:heavy_check_mark: 本题解提供了 [exploit 代码](../code/exploits/printer_queue.py)  
+> [!TIP]
+> :heavy_check_mark: 完整 exploit 代码见[此处](../code/exploits/printer_queue.py)  
 
 > 本题知识点：  
 > :star::star: 基本ROP链的构造  

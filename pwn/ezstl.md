@@ -1,6 +1,7 @@
 # ezstl - WriteUp
 
-:heavy_check_mark: 本题解提供了 [exploit 代码](../code/exploits/ezstl.py)  
+> [!TIP]
+> :heavy_check_mark: 完整 exploit 代码见[此处](../code/exploits/ezstl.py)  
 
 > 本题知识点：  
 > :star::star::star: STL内部代码的阅读能力  

@@ -9,9 +9,9 @@
 
 |标记|用途|示例|
 |-|-|-|
-|:star:`:star:`|表示难度，一般情况上限 5 颗，非常高的难度会超出上限|[moe论坛](./web/moe论坛.md)的难度被评为 :star: x7|
-|:large_blue_circle:`:large_blue_circle:`|表示 [自己写的实用工具](./code/tools/)|:large_blue_circle: [chr.py](./code/utilities/sandbox/chr.py)|
-|:heavy_check_mark:`:heavy_check_mark:`|表示 [Exploits](./code/exploits/)|:heavy_check_mark: 本题解提供了 exploit 代码|
+|:star:`:star:`|表示难度，一般情况上限 5 颗<br />非常高的难度会超出上限|[moe论坛](./web/moe论坛.md)的难度被评为 :star: x7|
+|:large_blue_circle:`:large_blue_circle:`|表示 [实用工具代码](./code/tools/)|:large_blue_circle: [chr.py](./code/utilities/sandbox/chr.py)|
+|:heavy_check_mark:`:heavy_check_mark:`|表示 [exploits](./code/exploits/)|:heavy_check_mark: 完整 exploit 代码见文末|
 |:warning:`:warning:`|表示需要注意的内容|:warning: 请勿将此仓库用于商业用途|
 
 ## 关于我自己

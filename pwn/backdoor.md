@@ -1,6 +1,7 @@
 # backdoor - WriteUp
 
-:heavy_check_mark: 本题解内提供了 exploit 代码  
+> [!TIP]
+> :heavy_check_mark: 完整 exploit 代码见文末
 
 > 本题知识点：  
 > :star: 基本的 `ret2text` 型攻击

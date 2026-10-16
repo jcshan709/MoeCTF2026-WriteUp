@@ -6,13 +6,16 @@ $m$ 是 flag 明文转换成的大整数
 $c$ 是密文  
 使用 **RSA** 加密
 
-$p$、$q$ 是大素数  
-$n = p \cdot q$  
-$c = m^e \bmod n$  
-$e = 65537$  
-$a = (2025)_{16}$  
-$b = (2026)_{16}$  
-$h = (ap + b) ^ q$  
+$$
+p = getPrime(1024) \\
+q = getPrime(1024) \\
+n = p \cdot q \\
+c = m^e \bmod n \\
+e = 65537 \\
+a = (2025)_{16} \\
+b = (2026)_{16} \\
+h = (ap + b) ^ q
+$$
 求解 $m$
 
 ### 推导
@@ -54,5 +57,7 @@ assert p*q == n
 phi = (p-1) * (q-1)
 d = pow(e, -1, phi)
 print(long_to_bytes(pow(c, d, n)).decode())
-# 输出：moectf{f3rmat_l1ttl3_th30r3m_l34ks_p_1n_2025}
 ```
+拿到 flag！
+
+    moectf{f3rmat_l1ttl3_th30r3m_l34ks_p_1n_2025}
